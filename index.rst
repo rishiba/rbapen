@@ -14,6 +14,8 @@
   CPP Pens <cpp/index.rst>
   Docker Pens <docker/index.rst>
   Golang Pens <golang/index.rst>
+  Misc Pens <misc/index.rst>
+  AWS Pens <aws_and_golang/index.rst>
 
 Indices and tables
 ==================

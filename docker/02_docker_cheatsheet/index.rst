@@ -7,6 +7,13 @@ To extract a file from a docker image
 
 * ``docker run --rm --entrypoint cat /usr/bin/docker-entrypoint.sh 3da585a74e97``
 
+
+Building Docker images
+=======================
+
+Pushing Docker Images to the repoistory
+=======================================
+
 Pulling centos6.7 machine
 =========================
 
