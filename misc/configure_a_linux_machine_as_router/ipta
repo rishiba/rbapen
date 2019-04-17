@@ -1,0 +1,9 @@
+#! /bin/bash
+iptables --flush
+iptables -L
+sudo iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE
+sudo iptables -A FORWARD -i enp0s8 -o enp0s3 -m state --state RELATED,ESTABLISHED -j ACCEPT
+sudo iptables -A FORWARD -i enp0s3  -o enp0s8 -j ACCEPT
+iptables -L
+# iptables-save > /etc/iptables.rules
+
