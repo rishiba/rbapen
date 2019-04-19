@@ -1,0 +1,41 @@
+
+# http://madorn.com/ubuntu-nic-bonding-with-virtualbox.html#.XLlnJHUzaxs
+I recently needed to setup nic bonding in Virtualbox to demo software intended to be deployed in a nic bonded environment.
+
+When doing this in VirtualBox, one needs to activiate the bond-fail-over-mac parameter to prevent issues with host-to-vm communication.
+
+Here's the VirtualbBox network config:
+
+Name:            node1
+Guest OS:        Ubuntu (64 bit)
+UUID:            cc550cfd-60b9-427c-b09d-0a2e0dad932b
+NIC 1:           MAC: 08002760454A, Attachment: Host-only Interface 'vboxnet0'
+NIC 2:           MAC: 080027A206C5, Attachment: Host-only Interface 'vboxnet0'
+Here is the Ubuntu config in /etc/network/interfaces. Notice the bond-fail-over-mac flag. This will ensure that only one of the nic slaves is assigned the bond0 mac address at a given time, thus resolving any host-to-vm routing issues.
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# Physical interface 0
+auto eth0
+iface eth0 inet manual
+bond-master bond0
+bond-primary eth0
+
+# Physical interface 1
+auto eth1
+iface eth1 inet manual
+bond-master bond0
+
+# Bond interface 0: eth0 (vboxnet0), eth2 (vboxnet0)
+auto bond0
+iface bond0 inet static
+bond-slaves none
+bond-mode active-backup
+bond-miimon 100
+bond-downdelay 200
+bond-updelay 200
+bond-fail-over-mac 1
+address 192.168.56.56
+netmask 255.255.255.0
