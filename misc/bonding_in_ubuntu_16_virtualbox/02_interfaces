@@ -1,0 +1,35 @@
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+auto enp0s3
+iface enp0s3 inet dhcp
+
+# Physical interface 0
+auto enp0s8
+iface enp0s8 inet manual
+bond-master bond0
+#bond-primary enp0s8 ## nothing is primary, if any of the network interfaces is up this will work.
+
+# Physical interface 1
+auto enp0s9
+iface enp0s9 inet manual
+bond-master bond0
+
+# Bond interface 0: eth0 (vboxnet0), eth2 (vboxnet0)
+auto bond0
+iface bond0 inet static
+bond-slaves none
+bond-mode active-backup
+bond-miimon 100
+bond-downdelay 200
+bond-updelay 200
+bond-fail-over-mac 1
+address 192.168.57.56
+netmask 255.255.255.0

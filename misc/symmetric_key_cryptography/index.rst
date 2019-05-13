@@ -12,7 +12,6 @@ Generate a file
   10+0 records out
   10485760 bytes (10 MB, 10 MiB) copied, 0.0634235 s, 165 MB/s
 
-
 Find the md5sum
 ===============
 
@@ -26,9 +25,7 @@ Append the md5sum in the filename
 
 ::
 
-
   $ mv 10mb_file 10mb_file_5c454dfdbd43bd6e410b3aae46c86a94
-
 
 Check the type of the data
 ==========================
@@ -54,10 +51,9 @@ Use the key for encryting the file
 
   $ openssl enc -aes-256-cbc -salt -in 10mb_file_5c454dfdbd43bd6e410b3aae46c86a94 -out 10mb_file_encrypted  -pass file:./key
 
-Command details are 
+Command details are
 
-
-.. csv-table:: 
+.. csv-table::
   :header: "Option", "Meaning", "Remarks"
 
   "enc", "encrypt", "ask openssl to encrypt"
@@ -72,7 +68,7 @@ Check the md5sum of the file
 
 ::
 
-  $ md5sum 10mb_file_encrypted 
+  $ md5sum 10mb_file_encrypted
   538b47f034ca11652d9c3cb9dd97eaa8  10mb_file_encrypted
 
 Check the data of the file
@@ -80,10 +76,9 @@ Check the data of the file
 
 ::
 
-  $ file 10mb_file_* 
+  $ file 10mb_file_*
   10mb_file_5c454dfdbd43bd6e410b3aae46c86a94: data
   10mb_file_encrypted:                        openssl enc'd data with salted password
-
 
 Decrypt the data of the file using the same key
 ===============================================
@@ -92,9 +87,9 @@ Decrypt the data of the file using the same key
 
   $ openssl enc -d -aes-256-cbc  -in 10mb_file_encrypted -out 10mb_file_decrypted  -pass file:./key
 
-Command details are 
+Command details are
 
-.. csv-table:: 
+.. csv-table::
   :header: "Option", "Meaning", "Remarks"
 
   "enc", "encrypt", "ask openssl to encrypt"

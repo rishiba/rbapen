@@ -16,7 +16,7 @@ iface enp0s3 inet dhcp
 auto enp0s8
 iface enp0s8 inet manual
 bond-master bond0
-bond-primary enp0s8
+bond-primary enp0s8   # here the primary is enp0s8 - so if you detach it then the bond0 will be down.
 
 # Physical interface 1
 auto enp0s9

@@ -1,6 +1,6 @@
-====================================
-Encrypt a file using Assymetric Keys
-====================================
+============================================
+Encrypt/Decrypt a file using Assymetric Keys
+============================================
 
 Generate a small file say with 64 bit of data
 =============================================
