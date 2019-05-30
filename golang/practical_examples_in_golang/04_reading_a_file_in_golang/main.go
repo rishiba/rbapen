@@ -9,6 +9,11 @@ import (
 	"os"
 )
 
+/*
+ * We need to create a new buffered reader and pass the io.Reader interface of
+ * the opened file. Then a simple call to bufio.ReadLine() will read a line of
+ * the file.
+ */
 func LineByLineReading(fileToRead string) {
 	var bufReader *bufio.Reader
 	fd, err := os.Open(fileToRead)
@@ -32,11 +37,12 @@ func LineByLineReading(fileToRead string) {
 		}
 
 		fmt.Fprintf(os.Stdout, "\n%s", line)
-
 	}
-
 }
 
+/*
+ * Get a new bufio with a io.Reader. Then keep reading till you get nil.
+ */
 func BufferedReading(fileToRead string) {
 	var bufReader *bufio.Reader
 	fd, err := os.Open(fileToRead)
