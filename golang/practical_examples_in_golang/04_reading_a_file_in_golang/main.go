@@ -5,18 +5,66 @@ import (
 	"io/ioutil"
 
 	"bufio"
+	"io"
 	"os"
 )
+
+func LineByLineReading(fileToRead string) {
+	var bufReader *bufio.Reader
+	fd, err := os.Open(fileToRead)
+
+	if err == nil {
+		fmt.Fprintf(os.Stderr, "\nOpened the file successfully")
+		defer fd.Close()
+	} else {
+		fmt.Fprintf(os.Stderr, "\nError opening file, %s, error is %s", fileToRead, err)
+		os.Exit(-1)
+	}
+
+	bufReader = bufio.NewReader(fd)
+
+	for {
+		line, _, err := bufReader.ReadLine()
+
+		if err == io.EOF {
+			fmt.Fprintf(os.Stderr, "\nFile read is complete")
+			return
+		}
+
+		fmt.Fprintf(os.Stdout, "\n%s", line)
+
+	}
+
+}
 
 func BufferedReading(fileToRead string) {
 	var bufReader *bufio.Reader
 	fd, err := os.Open(fileToRead)
 
+	if err == nil {
+		fmt.Fprintf(os.Stderr, "\nOpened the file successfully")
+		defer fd.Close()
+	} else {
+		fmt.Fprintf(os.Stderr, "\nError opening file, %s, error is %s", fileToRead, err)
+		os.Exit(-1)
+	}
+
 	bufReader = bufio.NewReader(fd)
 
 	buffer := make([]byte, 256)
 
-	bytesRead, err := bufReader.Read(buffer)
+	for {
+		bytesRead, err := bufReader.Read(buffer)
+
+		if err == io.EOF {
+			fmt.Fprintf(os.Stderr, "\nFile read is complete")
+			return
+		}
+
+		if bytesRead != 0 {
+			fmt.Fprintf(os.Stdout, "%s", buffer[:bytesRead])
+		}
+	}
 
 }
 func ReadingFile2(fileToRead string) {
@@ -108,7 +156,11 @@ func main() {
 		fileToRead = os.Args[1]
 	}
 
-	ReadingFile1(fileToRead)
-	ReadingFile2(fileToRead)
+	/*
+	 * ReadingFile1(fileToRead)
+	 * ReadingFile2(fileToRead)
+	 */
 
+	BufferedReading(fileToRead)
+	LineByLineReading(fileToRead)
 }
